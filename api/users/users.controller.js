@@ -1,6 +1,7 @@
 const userService = require('../services/user.service');
 const mailService = require("../services/mail.service");
 const Transactions = require('../users/payments.model');
+const Device = require('../users/device.model');
 
 exports.login = (req, res, next) => {
     var payments;
@@ -88,4 +89,38 @@ exports.getpayments = (req, res, next) => {
         }
         
     });
+}
+
+exports.addDevice =async (req, res, next) =>{
+    const device ={
+        regid: req.body.regid
+    }
+    const exists= await( Device.find({regid: req.body.regid}).count());
+    console.log(exists);
+    if(exists>0){
+        res.status(301).json("record exists");
+
+    }else{
+    let dev = new Device(device);
+    dev.save().then(function(result, err){
+        if(result){
+        res.status(200).json(result)
+        }else{
+            res.status(500).json("An error occured");
+        }
+    })
+}
+
+
+}
+
+exports.getDevices = (req, res, next)=>{
+    Device.find().exec(function(err, result){
+        if(result){
+            res.status(200).json(result);
+        }
+        if(err){
+            res.status(500).json(err);
+        }
+    })
 }

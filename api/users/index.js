@@ -11,5 +11,7 @@ router.post('/register', controller.create);
 router.put('/update/:id', controller.update);
 router.delete('/delete/:id', controller.delete);
 router.get('/payments', controller.getpayments);
+router.post('/device', controller.addDevice);
+router.get('/device', controller.getDevices);
 
 module.exports = router;
