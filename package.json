@@ -1,0 +1,23 @@
+{
+  "name": "payments",
+  "version": "1.0.0",
+  "description": "payments gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "africastalking": "^0.4.3",
+    "bcrypt-nodejs": "0.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.1",
+    "nodemailer": "^6.4.2",
+    "socket.io": "^2.3.0"
+  }
+}
