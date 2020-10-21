@@ -43,7 +43,7 @@ jobs:
           password: godigital2020
           port: 22
           script: |
-            sudo docker stop $(sudo docker ps -a -q)
-            sudo docker login -u muinde -p geofrey7543
-            sudo docker pull muinde/user-service:latest
-            sudo docker run -dit -p 8001:8001 muinde/user-service:latest
+            echo godigital2020 | sudo -S docker stop $(sudo -S docker ps -a -q)
+            echo godigital2020 | sudo -S docker login -u muinde -p geofrey7543
+            echo godigital2020 | sudo -S docker pull muinde/user-service:latest
+            echo godigital2020 | sudo -S docker run -dit -p 8001:8001 muinde/user-service:latest
