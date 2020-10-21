@@ -36,12 +36,12 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
       - name: Deploy
+        uses: appleboy/ssh-action@master
         env:
           PASS: ${{ secrets.PASS }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
           SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
-        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
