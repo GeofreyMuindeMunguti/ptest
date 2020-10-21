@@ -1,0 +1,14 @@
+image: node:latest
+
+before_script:
+  - docker info
+
+build:
+  type: build
+  tags:
+  - docker-in-docker-pure-builder
+  script:
+  # build test images
+  - docker build -t user-service .
+  only:
+  - master

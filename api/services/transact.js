@@ -40,7 +40,6 @@ async function topaybill(req){
         destinationAccount: req.accountName,
         amount:req.amount,
         metadata: {}
-
     }
     service.mobileB2B(options).then(response => {
         save(req);
@@ -76,8 +75,36 @@ async function touser(req){
     });
 
 }
+async function C2B(){
+    service = AfricasTalking.PAYMENTS
+
+    const options = {
+        // Set the name of your Africa's Talking payment product
+        productName: 'Sandbox',
+        // Set the phone number you want to send to in international format
+        phoneNumber: '+254711421684',
+        // Set the 3-Letter ISO currency code and the checkout amount
+        currencyCode: 'KES',
+        amount: 1000,
+        // Set any metadata that you would like to send along with this request.
+        // This metadata will be included when we send back the final payment notification
+        metadata: {
+            foo: "bar",
+            key: "value"
+        }
+    };
+
+    // That's it hit send and we'll take care of the rest
+    try {
+        const result = await service.mobileCheckout(options);
+        console.log(result);
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 async function save(req){
+
 
     const payload ={
         for : req.driver,
@@ -93,4 +120,4 @@ async function save(req){
     await transaction.save();
     
 }
-module.exports = {sms, topaybill, touser};
+module.exports = {sms, topaybill, touser, C2B};

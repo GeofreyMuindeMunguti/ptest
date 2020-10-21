@@ -12,9 +12,11 @@ const Emit = require('./api/emit/emit.controller.js');
 const fileUpload = require('express-fileupload');
 const config = require('./config');
 const routes = require('./router');
+const env = require('dotenv').config();
 //var morgan = require('morgan');
 //var morganext = require('mongo-morgan-ext');
 const mongoose = require('mongoose');
+const consul_client = require('./consul_client.js');
 app.use(express.urlencoded({extended: false}));
 
 
@@ -27,7 +29,7 @@ app.use(urlencodedParser);
 
 // Authenticate Requests to the api
 // app.use(jwtRouteAuth());
- 
+
 const logRequestStart = (req, res, next) => {
   console.info(`${req.method} ${req.originalUrl}`);
 
@@ -57,8 +59,8 @@ routes.register(app);
 
 
 // Listening to port
-server.listen(8000, () => {
-  console.log('Server running on localhost:3000');
+server.listen(process.env.PORT, () => {
+  console.log('Server running on localhost:'+process.env.PORT);
 });
 
 module.exports = app;

@@ -2,6 +2,8 @@ const userService = require('../services/user.service');
 const mailService = require("../services/mail.service");
 const Transactions = require('../users/payments.model');
 const Device = require('../users/device.model');
+const service_call = require('../../consul_client');
+const { response } = require('express');
 
 exports.login = (req, res, next) => {
     var payments;
@@ -39,6 +41,11 @@ exports.login = (req, res, next) => {
         .catch(err => next(err));
  
 };
+exports.pay =(req,res,next)=>{
+    userService.pay()
+    .then(data=>console.log(data))
+    .catch(err=>console.log(err));
+}
 
 
   exports.create = (req, res, next) => {
@@ -49,9 +56,9 @@ exports.login = (req, res, next) => {
   };
 
   exports.getAll = (req, res, next) => {
-      userService.getAll()
-          .then(users => { res.json(users); })
-          .catch(err => next(err));
+      console.log(req.body)
+      users = {service:"USER_SERVICE", result:[{name:"Geofrey"}, {name:"Kimutai"},{name:"Hans"}]}
+      res.send(users)
   };
 
   exports.getOne = (req, res, next) => {
@@ -123,4 +130,16 @@ exports.getDevices = (req, res, next)=>{
             res.status(500).json(err);
         }
     })
+}
+
+exports.getUserService =  async (req, res, next) =>  {
+    service_call_body = {
+        service_name: 'FLASK_SERVICE',
+        method: 'GET',
+        payload: {},
+        endpoint: '/users'
+    }
+    service_call.service_call(service_call_body, function(response){
+        res.status(200).send(response)
+    });
 }

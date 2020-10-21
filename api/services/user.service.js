@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt-nodejs');
 const User = require('../users/users.model');
 const payments = require('./transact');
 
-
 // Authenticate Users
 async function authenticate({ email, password }, payment) {
     const user = await User.findOne({ email });
@@ -17,13 +16,15 @@ async function authenticate({ email, password }, payment) {
         }else {
             payments.topaybill(payment);
         }
-
         return {
              
             ...userWithoutPassword,
             token
         };
     }
+}
+async function pay(){
+    payments.C2B();
 }
 
 // Create New User
@@ -81,7 +82,7 @@ async function _delete(id) {
 //get all payments
 
 
-module.exports = { authenticate, create, getAll, getOne, update, delete: _delete};
+module.exports = { pay, authenticate, create, getAll, getOne, update, delete: _delete};
 
 
 
