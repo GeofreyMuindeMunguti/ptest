@@ -37,18 +37,13 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
       - name: Deploy
         uses: appleboy/ssh-action@master
-        env:
-          PASS: ${{ secrets.PASS }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASS }}
           port: ${{ secrets.PORT }}
           script: |
-            echo $PASS | sudo -S docker stop $(sudo -S docker ps -a -q)
-            echo $PASS | sudo -S docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
-            echo $PASS | sudo -S docker pull $DOCKER_USERNAME/$SERVICE_NAME:latest
-            echo $PASS | sudo -S docker run -dit -p 8001:8001 $DOCKER_USERNAME/$SERVICE_NAME:latest
+            echo godigital2020 | sudo -S docker stop $(sudo -S docker ps -a -q)
+            echo godigital2020 | sudo -S docker login -u muinde -p geofrey7543
+            echo godigital2020 | sudo -S docker pull muinde/user-service:latest
+            echo godigital2020 | sudo -S docker run -dit -p 8001:8001 muinde/user-service:latest
