@@ -29,9 +29,6 @@ jobs:
         run: docker login -u muinde -p geofrey7543
       - name: Build
         run: docker build -t user-service .
-      - name: Tags
-        run: |
-          docker tag back muinde/user-service:latest
       - name: Push
         run: |
           docker push muinde/user-service:latest
