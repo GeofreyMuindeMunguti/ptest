@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.PASS }}
           port: ${{ secrets.PORT }}
           script: |
-            echo godigital2020 | sudo -S docker stop $(sudo -S docker ps -a -q)
-            echo godigital2020 | sudo -S docker login -u muinde -p geofrey7543
-            echo godigital2020 | sudo -S docker pull muinde/user-service:latest
-            echo godigital2020 | sudo -S docker run -dit -p 8001:8001 muinde/user-service:latest
+            echo ${{ secrets.PASS }} | sudo -S docker stop $(sudo -S docker ps -a -q)
+            echo ${{ secrets.PASS }} | sudo -S docker login -u muinde -p geofrey7543
+            echo ${{ secrets.PASS }} | sudo -S docker pull muinde/user-service:latest
+            echo ${{ secrets.PASS }} | sudo -S docker run -dit -p 8001:8001 muinde/user-service:latest
