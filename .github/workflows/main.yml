@@ -31,7 +31,7 @@ jobs:
         run: docker build -t user-service .
       - name: Tags
         run: |
-          docker tag muinde/user-service muinde/user-service:latest
+          docker tag user-service muinde/user-service:latest
       - name: Push
         run: |
           docker push muinde/user-service:latest
