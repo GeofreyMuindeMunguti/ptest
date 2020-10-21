@@ -39,7 +39,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: 3.16.36.242
-          username: ubuntu
+          username: godigital
           password: godigital2020
           port: 22
           script: |
