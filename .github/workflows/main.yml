@@ -31,7 +31,19 @@ jobs:
         run: docker build -t user-service .
       - name: Tags
         run: |
-          docker tag muinde/user-service muinde/user-service:latest
+          docker tag user-service muinde/user-service:latest
       - name: Push
         run: |
           docker push muinde/user-service:latest
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 3.16.36.242
+          username: ubuntu
+          password: godigital2020
+          port: 22
+          script: |
+            sudo docker stop $(sudo docker ps -a -q)
+            sudo docker login -u muinde -p geofrey7543
+            sudo docker pull muinde/user-service:latest
+            sudo docker run -dit -p 8001:8001 muinde/user-service:latest
