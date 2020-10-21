@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.PASS }}
           port: ${{ secrets.PORT }}
           script: |
-            echo "$PASS" | sudo -S docker stop $(sudo -S docker ps -a -q)
-            echo "$PASS" | sudo -S docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASS"
-            echo "$PASS" | sudo -S docker pull "$DOCKER_USERNAME"/"$SERVICE_NAME":latest
-            echo "$PASS" | sudo -S docker run -dit -p 8001:8001 "$DOCKER_USERNAME"/"$SERVICE_NAME":latest
+            echo $PASS | sudo -S docker stop $(sudo -S docker ps -a -q)
+            echo $PASS | sudo -S docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
+            echo $PASS | sudo -S docker pull $DOCKER_USERNAME/$SERVICE_NAME:latest
+            echo $PASS | sudo -S docker run -dit -p 8001:8001 $DOCKER_USERNAME/$SERVICE_NAME:latest
