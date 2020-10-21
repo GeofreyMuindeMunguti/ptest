@@ -26,24 +26,24 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Docker login
-        run: docker login -u muinde -p geofrey7543
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
       - name: Build
-        run: docker build -t user-service .
+        run: docker build -t ${{ secrets.SERVICE_NAME }} .
       - name: Tags
         run: |
-          docker tag user-service muinde/user-service:latest
+          docker tag ${{ secrets.SERVICE_NAME }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
       - name: Push
         run: |
-          docker push muinde/user-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: 3.16.36.242
-          username: godigital
-          password: godigital2020
-          port: 22
+          host: ${{ secrets.HOST
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASS }}
+          port: ${{ secrets.PORT }}
           script: |
-            echo godigital2020 | sudo -S docker stop $(sudo -S docker ps -a -q)
-            echo godigital2020 | sudo -S docker login -u muinde -p geofrey7543
-            echo godigital2020 | sudo -S docker pull muinde/user-service:latest
-            echo godigital2020 | sudo -S docker run -dit -p 8001:8001 muinde/user-service:latest
+            echo ${{ secrets.PASS }} | sudo -S docker stop $(sudo -S docker ps -a -q)
+            echo ${{ secrets.PASS }} | sudo -S docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
+            echo ${{ secrets.PASS }} | sudo -S docker pull ${{ secrets.USER_NAME }}/${{ secrets.SERVICE_NAME }}:latest
+            echo ${{ secrets.PASS }} | sudo -S docker run -dit -p 8001:8001 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
