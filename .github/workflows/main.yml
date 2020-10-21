@@ -38,12 +38,12 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASS }}
           port: ${{ secrets.PORT }}
           script: |
             echo ${{ secrets.PASS }} | sudo -S docker stop $(sudo -S docker ps -a -q)
             echo ${{ secrets.PASS }} | sudo -S docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASS }}
-            echo ${{ secrets.PASS }} | sudo -S docker pull ${{ secrets.USER_NAME }}/${{ secrets.SERVICE_NAME }}:latest
+            echo ${{ secrets.PASS }} | sudo -S docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
             echo ${{ secrets.PASS }} | sudo -S docker run -dit -p 8001:8001 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.SERVICE_NAME }}:latest
